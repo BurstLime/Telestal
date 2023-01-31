@@ -50,39 +50,72 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 sender.sendMessage(HelpMessage);
             } else if (args[0].equalsIgnoreCase("activate")) {
                 //activate
-                if(args[1].equals("all")){
+                if (args[1].equals("all")) {
                     sender.sendMessage("現在、未実装です。");
                     return true;
                 }
 
                 Player player;
-                if(args.length == 3){
+                if (args.length == 3) {
                     player = plugin.getServer().getPlayer(args[2]);
                 } else {
                     player = (Player) sender;
                 }
 
-                List<String> activate_player = this.getactivateplayer(player,args[1]);
-                if (activate_player == null){
+                List<String> activate_player = this.getactivateplayer(player, args[1]);
+                if (activate_player == null) {
                     return true;
                 }
 
-                if(activate_player.contains(player.getUniqueId().toString())){
-                    sender.sendMessage(prefix+ChatColor.RED+plugin.getConfig().getString("activate_already").
-                            replace("<player>",player.getName()).replace("<portal>",args[1]));
-                }else{
+                if (activate_player.contains(player.getUniqueId().toString())) {
+                    sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("activate_already").
+                            replace("<player>", player.getName()).replace("<portal>", args[1]));
+                } else {
                     activate_player.add(player.getUniqueId().toString());
                     try {
-                        new TelestalActivate(plugin).PlayerActivate(args[1],activate_player);
-                        sender.sendMessage(prefix+ChatColor.GREEN+plugin.getConfig().getString("activate_success").
-                                replace("<portal>",args[1]).replace("<player>",player.getName()));
+                        new TelestalActivate(plugin).PlayerActivate(args[1], activate_player);
+                        sender.sendMessage(prefix + ChatColor.GREEN + plugin.getConfig().getString("activate_success").
+                                replace("<portal>", args[1]).replace("<player>", player.getName()));
                     } catch (FileNotFoundException e) {
-                        sender.sendMessage(prefix+ChatColor.RED+plugin.getConfig().getString("activate_fail").
-                                replace("<portal>",args[1]));
+                        sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("activate_fail").
+                                replace("<portal>", args[1]));
                         throw new RuntimeException(e);
                     }
                 }
+            } else if (args[0].equalsIgnoreCase("inactivate")) {
+                //inactivate
+                if (args[1].equals("all")) {
+                    sender.sendMessage("現在、未実装です。");
+                    return true;
+                }
 
+                Player player;
+                if (args.length == 3) {
+                    player = plugin.getServer().getPlayer(args[2]);
+                } else {
+                    player = (Player) sender;
+                }
+
+                List<String> activate_player = this.getactivateplayer(player, args[1]);
+                if (activate_player == null) {
+                    return true;
+                }
+
+                if (!activate_player.contains(player.getUniqueId().toString())) {
+                    sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("inactivate_already").
+                            replace("<player>", player.getName()).replace("<portal>", args[1]));
+                } else {
+                    activate_player.remove(player.getUniqueId().toString());
+                    try {
+                        new TelestalActivate(plugin).PlayerActivate(args[1], activate_player);
+                        sender.sendMessage(prefix + ChatColor.GREEN + plugin.getConfig().getString("inactivate_success").
+                                replace("<portal>", args[1]).replace("<player>", player.getName()));
+                    } catch (FileNotFoundException e) {
+                        sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("inactivate_fail").
+                                replace("<portal>", args[1]));
+                        throw new RuntimeException(e);
+                    }
+                }
             } else if (args[0].equalsIgnoreCase("create") && args.length == 2) {
                 //create
                 Path data_path = Paths.get(plugin.getDataFolder().getPath()+"\\portal\\"+args[1]+".yml");

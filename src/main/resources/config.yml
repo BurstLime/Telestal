@@ -23,3 +23,7 @@ create_duplication: "既にそのポータルは存在しています！"
 activate_success: "<portal>をアクティベートしました！\n（対象: <player>）"
 activate_fail: "<portal>のアクティベートに失敗しました"
 activate_already: "<player>は既に<portal>をアクティベート済みです！"
+
+inactivate_success: "<portal>をアクティベートを無効化しました！\n（対象: <player>）"
+inactivate_fail: "<portal>のアクティベートの無効化に失敗しました"
+inactivate_already: "<player>は既に<portal>がアクティベートされていません！"
