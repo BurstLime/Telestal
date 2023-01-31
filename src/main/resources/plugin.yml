@@ -1,0 +1,10 @@
+name: Telestal
+version: '${project.version}'
+main: net.ariremi.telestal.Telestal
+authors: [ BurstLime ]
+commands:
+  telestal:
+    aliases: [ ts ]
+    description: メインコマンド
+    usage: /<command>
+    default: op

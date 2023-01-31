@@ -1,0 +1,23 @@
+prefix: "[&bTelestal&r]"
+
+command_help: "ヘルプを表示"
+command_create: "ポータルを作成"
+command_remove: "ポータルを削除"
+command_set: "ポータルの位置を再設定"
+command_rename: "名前を変更"
+command_info: "ポータル・プレイヤーの情報を表示"
+command_give: "転移結晶を与える"
+command_list: "ポータルのリストを表示"
+command_clear: "データを削除"
+command_activate: "指定プレイヤーのポータルを有効化"
+command_inactivate: "指定プレイヤーのポータルを無効化"
+
+portal_not_found: "ポータルが見つかりません！"
+
+create_success: "ポータル <portal> の作成に成功しました"
+create_fail: "ポータル <portal> の作成に失敗しました"
+create_duplication: "既にそのポータルは存在しています！"
+
+activate_success: "<portal>をアクティベートしました！\n（対象: <player>）"
+activate_fail: "<portal>のアクティベートに失敗しました"
+activate_already: "<player>は既に<portal>をアクティベート済みです！"
