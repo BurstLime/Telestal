@@ -1,5 +1,7 @@
 prefix: "[&bTelestal&r]"
 
+console_execute: "コンソールから実行することはできません！"
+
 command_help: "ヘルプを表示"
 command_create: "ポータルを作成"
 command_remove: "ポータルを削除"
