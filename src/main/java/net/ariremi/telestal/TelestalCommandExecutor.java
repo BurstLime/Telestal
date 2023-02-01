@@ -139,7 +139,27 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("remove") && args.length == 2) {
                 //remove
-                new TelestalCreate(plugin).RemoveFile(sender,args[1]);
+                this.RemoveFile(sender,args[1]);
+            } else if (args[0].equalsIgnoreCase("rename") && args.length == 3) {
+                //rename
+                Path now_path = Paths.get(plugin.getDataFolder().getPath() + "\\portal\\" + args[1] + ".yml");
+                Path new_path = Paths.get(plugin.getDataFolder().getPath() + "\\portal\\" + args[2] + ".yml");
+                if(Files.exists(now_path) && !Files.exists((new_path))){
+                    File now = new File(now_path.toUri());
+                    File newFile = new File(plugin.getDataFolder().getPath() + "\\portal\\" + args[2] + ".yml");
+                    if(now.renameTo(newFile)){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("rename_success").
+                                replace("&","§").replace("<portal>",args[1]).replace("<new_portal>",args[2]));
+                    } else {
+                        sender.sendMessage(prefix+plugin.getConfig().getString("rename_fail").
+                                replace("&","§").replace("<portal>",args[1]));
+                    }
+                } else if (Files.exists(now_path) && Files.exists(new_path)) {
+                    sender.sendMessage(prefix+plugin.getConfig().getString("rename_duplication").
+                            replace("&","§").replace("<new_portal>",args[2]));
+                } else{
+                    sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
+                }
             }
         }
         return true;
@@ -170,6 +190,25 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 throw new RuntimeException(e);
             }
             return (List) load_data.get("player");
+        }
+    }
+
+    private void RemoveFile(CommandSender sender, String name){
+        String prefix = plugin.getConfig().getString("prefix")+" ";
+        prefix = prefix.replace("&","§");
+
+        Path File = Paths.get(plugin.getDataFolder().getPath() + "\\portal\\" + name + ".yml");
+        if(Files.exists(File)){
+            try{
+                Files.delete(File);
+                sender.sendMessage(prefix+plugin.getConfig().getString("remove_success").
+                        replace("<portal>",name).replace("&","§"));
+            } catch (IOException e) {
+                sender.sendMessage(prefix+plugin.getConfig().getString("remove_fail").
+                        replace("<portal>",name).replace("&","§"));
+            }
+        }else {
+            sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
         }
     }
 }

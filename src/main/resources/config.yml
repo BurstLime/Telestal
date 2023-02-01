@@ -23,6 +23,10 @@ create_duplication: "&c既にそのポータルは存在しています！"
 remove_success: "&aポータル &l<portal> &aの削除に成功しました"
 remove_fail: "&cポータル &l<portal> &cの削除に失敗しました"
 
+rename_success: "&aポータル &2&l<portal> &aを &b&l<new_portal> &aに変更しました"
+rename_fail: "&cポータル &l<portal> &cの名前変更に失敗しました"
+rename_duplication: "&c&l<new_portal> &cというポータルは既に存在するため、変更に失敗しました"
+
 activate_success: "&a&l<portal>&aをアクティベートしました！\n対象: <player>"
 activate_fail: "&c&l<portal>&cのアクティベートに失敗しました"
 activate_already: "&c<player>は既に<portal>をアクティベート済みです！"
