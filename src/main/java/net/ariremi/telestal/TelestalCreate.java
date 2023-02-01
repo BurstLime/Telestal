@@ -24,7 +24,8 @@ public class TelestalCreate {
 
 
     public void CreateFile(String name, Location loc) throws FileNotFoundException, UnsupportedEncodingException {
-        File newFile = new File(plugin.getDataFolder().getPath()+"\\portal\\"+name+".yml");
+        File newFile = new File(plugin.getDataFolder().getPath(),"portal");
+        newFile = new File(newFile,name+".yml");
         OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(newFile), "UTF-8");
         Map<String, Object> dataMap = new HashMap<>();
         List<String> playerlist = new ArrayList<>();

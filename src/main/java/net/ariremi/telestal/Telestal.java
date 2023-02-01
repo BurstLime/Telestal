@@ -17,9 +17,8 @@ public final class Telestal extends JavaPlugin {
         if(!getDataFolder().exists()) getDataFolder().mkdir();
         saveDefaultConfig();
 
-        Path data_path = Paths.get(getDataFolder().getPath()+"\\portal");
-        if(!Files.exists(data_path)){
-            File portal_file = new File(getDataFolder().getPath()+"\\portal");
+        File portal_file = new File(getDataFolder(), "portal");
+        if(!Files.exists(portal_file.toPath())){
             portal_file.mkdir();
         }
 
