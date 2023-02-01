@@ -156,11 +156,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 this.RemoveFile(sender,args[1]);
             } else if (args[0].equalsIgnoreCase("rename") && args.length == 3) {
                 //rename
-                Path now_path = Paths.get(plugin.getDataFolder().getPath() + "\\portal\\" + args[1] + ".yml");
-                Path new_path = Paths.get(plugin.getDataFolder().getPath() + "\\portal\\" + args[2] + ".yml");
-                if(Files.exists(now_path) && !Files.exists((new_path))){
-                    File now = new File(now_path.toUri());
-                    File newFile = new File(plugin.getDataFolder().getPath() + "\\portal\\" + args[2] + ".yml");
+                File now = new File(plugin.getDataFolder().getPath(),"portal");
+                now = new File(now,args[1]+".yml");
+                File newFile = new File(plugin.getDataFolder().getPath(),"portal");
+                newFile = new File(newFile,args[2]+".yml");
+                if(Files.exists(now.toPath()) && !Files.exists((newFile.toPath()))){
                     if(now.renameTo(newFile)){
                         sender.sendMessage(prefix+plugin.getConfig().getString("rename_success").
                                 replace("&","§").replace("<portal>",args[1]).replace("<new_portal>",args[2]));
@@ -168,7 +168,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         sender.sendMessage(prefix+plugin.getConfig().getString("rename_fail").
                                 replace("&","§").replace("<portal>",args[1]));
                     }
-                } else if (Files.exists(now_path) && Files.exists(new_path)) {
+                } else if (Files.exists(now.toPath()) && Files.exists(newFile.toPath())) {
                     sender.sendMessage(prefix+plugin.getConfig().getString("rename_duplication").
                             replace("&","§").replace("<new_portal>",args[2]));
                 } else{
@@ -176,8 +176,9 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("set") && args.length == 2) {
                 //set
-                Path data_path = Paths.get(plugin.getDataFolder().getPath()+"\\portal\\"+args[1]+".yml");
-                if(Files.exists(data_path)) {
+                File File = new File(plugin.getDataFolder().getPath(),"portal");
+                File = new File(File,args[1]+".yml");
+                if(Files.exists(File.toPath())) {
                     Player player = (Player) sender;
                     Location location = player.getLocation();
                     try {
