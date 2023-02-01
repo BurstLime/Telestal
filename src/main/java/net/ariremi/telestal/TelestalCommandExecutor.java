@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -57,7 +58,13 @@ public class TelestalCommandExecutor implements CommandExecutor {
 
                 Player player;
                 if (args.length == 3) {
-                    player = plugin.getServer().getPlayer(args[2]);
+                    try {
+                        player = plugin.getServer().getPlayer(args[2]);
+                        player.getUniqueId().toString();
+                    }catch (Exception e){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                        return true;
+                    }
                 } else {
                     player = (Player) sender;
                 }
@@ -91,7 +98,13 @@ public class TelestalCommandExecutor implements CommandExecutor {
 
                 Player player;
                 if (args.length == 3) {
-                    player = plugin.getServer().getPlayer(args[2]);
+                    try {
+                        player = plugin.getServer().getPlayer(args[2]);
+                        player.getUniqueId().toString();
+                    }catch (Exception e){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                        return true;
+                    }
                 } else {
                     player = (Player) sender;
                 }
@@ -160,6 +173,23 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 } else{
                     sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
                 }
+            } else if (args[0].equalsIgnoreCase("set") && args.length == 2) {
+                //set
+                Path data_path = Paths.get(plugin.getDataFolder().getPath()+"\\portal\\"+args[1]+".yml");
+                if(Files.exists(data_path)) {
+                    Player player = (Player) sender;
+                    Location location = player.getLocation();
+                    try {
+                        this.SetLocation(args[1], location);
+                        sender.sendMessage(prefix+plugin.getConfig().getString("set_success").
+                                replace("&","§").replace("<portal>",args[1]));
+                    } catch (FileNotFoundException e) {
+                        sender.sendMessage(prefix+plugin.getConfig().getString("set_fail").
+                                replace("&","§").replace("<portal>",args[1]));
+                    }
+                } else {
+                    sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
+                }
             }
         }
         return true;
@@ -209,6 +239,37 @@ public class TelestalCommandExecutor implements CommandExecutor {
             }
         }else {
             sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
+        }
+    }
+
+    private void SetLocation(String name, Location loc) throws FileNotFoundException {
+        File File = new File(plugin.getDataFolder().getPath()+"\\portal\\"+name+".yml");
+        InputStream inputStream;
+        try {
+            inputStream = new FileInputStream(File);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        DumperOptions options = new DumperOptions();
+        options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+        options.setPrettyFlow(true);
+        Yaml yaml = new Yaml(options);
+        Map<String, Object> data = yaml.load(inputStream);
+
+        data.put("world", loc.getWorld().getName());
+        data.put("x", loc.getBlockX());
+        data.put("y", loc.getBlockY());
+        data.put("z", loc.getBlockZ());
+        data.put("yaw", loc.getYaw());
+        data.put("pitch", loc.getPitch());
+        PrintWriter writer = new PrintWriter(File);
+        yaml.dump(data, writer);
+        try {
+            writer.close();
+            inputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

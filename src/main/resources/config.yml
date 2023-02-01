@@ -15,22 +15,26 @@ command_activate: "&a指定プレイヤーのポータルを有効化"
 command_inactivate: "&a指定プレイヤーのポータルを無効化"
 
 portal_not_found: "&cポータルが見つかりません！"
+player_not_found: "&cプレイヤーが見つかりません！"
 
-create_success: "&aポータル &l<portal> &aの作成に成功しました"
-create_fail: "&cポータル &l<portal> &cの作成に失敗しました"
+create_success: "&aポータル &2&l<portal> &aの作成に成功しました"
+create_fail: "&cポータル &4&l<portal> &cの作成に失敗しました"
 create_duplication: "&c既にそのポータルは存在しています！"
 
-remove_success: "&aポータル &l<portal> &aの削除に成功しました"
-remove_fail: "&cポータル &l<portal> &cの削除に失敗しました"
+remove_success: "&aポータル &2&l<portal> &aの削除に成功しました"
+remove_fail: "&cポータル &4&l<portal> &cの削除に失敗しました"
 
 rename_success: "&aポータル &2&l<portal> &aを &b&l<new_portal> &aに変更しました"
-rename_fail: "&cポータル &l<portal> &cの名前変更に失敗しました"
-rename_duplication: "&c&l<new_portal> &cというポータルは既に存在するため、変更に失敗しました"
+rename_fail: "&cポータル &4&l<portal> &cの名前変更に失敗しました"
+rename_duplication: "&4&l<new_portal> &cというポータルは既に存在するため、変更に失敗しました"
 
-activate_success: "&a&l<portal>&aをアクティベートしました！\n対象: <player>"
-activate_fail: "&c&l<portal>&cのアクティベートに失敗しました"
-activate_already: "&c<player>は既に<portal>をアクティベート済みです！"
+set_success: "&aポータル &2&l<portal> &aの位置を変更しました"
+set_fail: "&cポータル &4&l<portal> &cの位置変更に失敗しました"
 
-inactivate_success: "&a&l<portal>&aのアクティベートを無効化しました！\n対象: <player>"
-inactivate_fail: "&c&l<portal>&cのアクティベートの無効化に失敗しました"
-inactivate_already: "&c<player>は既に<portal>がアクティベートされていません！"
+activate_success: "&2&l<portal>&aをアクティベートしました！\n対象: <player>"
+activate_fail: "&4&l<portal>&cのアクティベートに失敗しました"
+activate_already: "&4<player>&cは&4&l<portal>&cをアクティベート済みです！"
+
+inactivate_success: "&2&l<portal>&aのアクティベートを解除しました！\n対象: <player>"
+inactivate_fail: "&4&l<portal>&cのアクティベートの解除に失敗しました"
+inactivate_already: "&4<player>&cは&4&l<portal>&cのアクティベートをしていません！"
