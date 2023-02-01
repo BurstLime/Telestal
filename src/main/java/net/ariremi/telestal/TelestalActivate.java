@@ -16,7 +16,7 @@ public class TelestalActivate {
 
     public void PlayerActivate(String name, List<String> playerlist) throws FileNotFoundException {
         File File = new File(plugin.getDataFolder().getPath()+"\\portal\\"+name+".yml");
-        InputStream inputStream = null;
+        InputStream inputStream;
         try {
             inputStream = new FileInputStream(File);
         } catch (FileNotFoundException e) {
@@ -32,5 +32,11 @@ public class TelestalActivate {
         data.put("player",playerlist);
         PrintWriter writer = new PrintWriter(File);
         yaml.dump(data, writer);
+        try {
+            writer.close();
+            inputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

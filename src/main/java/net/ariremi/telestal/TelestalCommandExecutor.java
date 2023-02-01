@@ -35,17 +35,17 @@ public class TelestalCommandExecutor implements CommandExecutor {
         if(command.getName().equalsIgnoreCase("telestal")){
             if(args.length == 0 || args[0].equalsIgnoreCase("help")){
                 String HelpMessage = ChatColor.BLUE + "<=== Telestal Help ===>" + ChatColor.RESET + "\n"
-                        + "/ts help " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_help") + ChatColor.RESET + "\n"
-                        + "/ts give <name> <任意:使用回数> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_give") + ChatColor.RESET + "\n"
-                        + "/ts create <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_create") + ChatColor.RESET + "\n"
-                        + "/ts remove <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_remove") + ChatColor.RESET + "\n"
-                        + "/ts set <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_set") + ChatColor.RESET + "\n"
-                        + "/ts rename <name> <new_name>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_rename") + ChatColor.RESET + "\n"
-                        + "/ts info [portal|player] <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info") + ChatColor.RESET + "\n"
-                        + "/ts list " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list") + ChatColor.RESET + "\n"
-                        + "/ts clear [player|all] " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_clear") + ChatColor.RESET + "\n"
-                        + "/ts activate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate") + ChatColor.RESET + "\n"
-                        + "/ts inactivate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate") + ChatColor.RESET + "\n";
+                        + "/ts help " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_help").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts give <name> <任意:使用回数> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_give").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts create <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_create").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts remove <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_remove").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts set <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_set").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts rename <name> <new_name>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_rename").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts info [portal|player] <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts list " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts clear [player|all] " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_clear").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts activate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts inactivate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
 
                 sender.sendMessage(HelpMessage);
             } else if (args[0].equalsIgnoreCase("activate")) {
@@ -68,17 +68,17 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
 
                 if (activate_player.contains(player.getUniqueId().toString())) {
-                    sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("activate_already").
-                            replace("<player>", player.getName()).replace("<portal>", args[1]));
+                    sender.sendMessage(prefix + plugin.getConfig().getString("activate_already").
+                            replace("<player>", player.getName()).replace("<portal>", args[1]).replace("&","§"));
                 } else {
                     activate_player.add(player.getUniqueId().toString());
                     try {
                         new TelestalActivate(plugin).PlayerActivate(args[1], activate_player);
-                        sender.sendMessage(prefix + ChatColor.GREEN + plugin.getConfig().getString("activate_success").
-                                replace("<portal>", args[1]).replace("<player>", player.getName()));
+                        sender.sendMessage(prefix + plugin.getConfig().getString("activate_success").
+                                replace("<portal>", args[1]).replace("<player>", player.getName()).replace("&","§"));
                     } catch (FileNotFoundException e) {
-                        sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("activate_fail").
-                                replace("<portal>", args[1]));
+                        sender.sendMessage(prefix + plugin.getConfig().getString("activate_fail").
+                                replace("<portal>", args[1]).replace("&","§"));
                         throw new RuntimeException(e);
                     }
                 }
@@ -102,17 +102,17 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
 
                 if (!activate_player.contains(player.getUniqueId().toString())) {
-                    sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("inactivate_already").
-                            replace("<player>", player.getName()).replace("<portal>", args[1]));
+                    sender.sendMessage(prefix + plugin.getConfig().getString("inactivate_already").
+                            replace("<player>", player.getName()).replace("<portal>", args[1]).replace("&","§"));
                 } else {
                     activate_player.remove(player.getUniqueId().toString());
                     try {
                         new TelestalActivate(plugin).PlayerActivate(args[1], activate_player);
-                        sender.sendMessage(prefix + ChatColor.GREEN + plugin.getConfig().getString("inactivate_success").
-                                replace("<portal>", args[1]).replace("<player>", player.getName()));
+                        sender.sendMessage(prefix + plugin.getConfig().getString("inactivate_success").
+                                replace("<portal>", args[1]).replace("<player>", player.getName()).replace("&","§"));
                     } catch (FileNotFoundException e) {
-                        sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("inactivate_fail").
-                                replace("<portal>", args[1]));
+                        sender.sendMessage(prefix + plugin.getConfig().getString("inactivate_fail").
+                                replace("<portal>", args[1]).replace("&","§"));
                         throw new RuntimeException(e);
                     }
                 }
@@ -120,20 +120,26 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 //create
                 Path data_path = Paths.get(plugin.getDataFolder().getPath()+"\\portal\\"+args[1]+".yml");
                 if(Files.exists(data_path)){
-                    sender.sendMessage(prefix+ChatColor.RED+plugin.getConfig().getString("create_duplication"));
+                    sender.sendMessage(prefix+plugin.getConfig().getString("create_duplication").replace("&","§"));
                 }else{
                     Player player = (Player) sender;
                     Location location = player.getLocation();
                     try {
                         new TelestalCreate(plugin).CreateFile(args[1],location);
-                        sender.sendMessage(prefix+ChatColor.GREEN+plugin.getConfig().getString("create_success").replace("<portal>",args[1]));
+                        sender.sendMessage(prefix+plugin.getConfig().getString("create_success").
+                                replace("<portal>",args[1]).replace("&","§"));
                     } catch (FileNotFoundException e) {
-                        sender.sendMessage(prefix+ChatColor.RED+plugin.getConfig().getString("create_fail").replace("<portal>",args[1]));
+                        sender.sendMessage(prefix+plugin.getConfig().getString("create_fail").
+                                replace("<portal>",args[1]).replace("&","§"));
                     } catch (UnsupportedEncodingException e) {
-                        sender.sendMessage(prefix+ChatColor.RED+plugin.getConfig().getString("create_fail").replace("<portal>",args[1]));
+                        sender.sendMessage(prefix+plugin.getConfig().getString("create_fail").
+                                replace("<portal>",args[1]).replace("&","§"));
                         throw new RuntimeException(e);
                     }
                 }
+            } else if (args[0].equalsIgnoreCase("remove") && args.length == 2) {
+                //remove
+                new TelestalCreate(plugin).RemoveFile(sender,args[1]);
             }
         }
         return true;
@@ -145,7 +151,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
 
         Path data_path = Paths.get(plugin.getDataFolder().getPath()+"\\portal\\"+name+".yml");
         if(!Files.exists(data_path)) {
-            sender.sendMessage(prefix + ChatColor.RED + plugin.getConfig().getString("portal_not_found"));
+            sender.sendMessage(prefix + plugin.getConfig().getString("portal_not_found").replace("&","§"));
             return null;
         }else {
             File newFile = new File(plugin.getDataFolder().getPath()+"\\portal\\"+name+".yml");
@@ -158,6 +164,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
 
             Yaml yaml = new Yaml();
             Map<String, Object> load_data = yaml.load(inputStream);
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return (List) load_data.get("player");
         }
     }
