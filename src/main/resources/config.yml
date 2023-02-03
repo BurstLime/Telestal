@@ -1,6 +1,7 @@
 prefix: "[&bTelestal&r]"
 
 console_execute: "コンソールから実行することはできません！"
+invalid_value: "&c無効な値です"
 
 command_help: "&aヘルプを表示"
 command_create: "&aポータルを作成"
@@ -38,3 +39,6 @@ activate_already: "&4<player>&cは&4&l<portal>&cをアクティベート済み�
 inactivate_success: "&2&l<portal>&aのアクティベートを解除しました！\n対象: <player>"
 inactivate_fail: "&4&l<portal>&cのアクティベートの解除に失敗しました"
 inactivate_already: "&4<player>&cは&4&l<portal>&cのアクティベートをしていません！"
+
+page_syntax: "<file>\n"
+list_nothing: "&cポータルが存在しません"

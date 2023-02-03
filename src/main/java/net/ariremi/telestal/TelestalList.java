@@ -13,7 +13,25 @@ public class TelestalList {
 
     //ページ内容
     public String PageContent(Integer page){
-        return "a";
+        String[] portal_list = PortalList();
+        Integer amount = portal_list.length;
+        List<String> page_content = new ArrayList<String>();
+        for(int p = 0; p < GetPages(); p++){
+            String content = "";
+            if (p == GetPages() - 1){
+                for(int c = 0; c < LastPage(); c++){
+                    content = content + plugin.getConfig().getString("page_syntax").
+                            replace("&","§").replace("<file>",portal_list[(p*6)+c]);
+                }
+            }else {
+                for(int c = 0; c < 6; c++){
+                    content = content + plugin.getConfig().getString("page_syntax").
+                            replace("&","§").replace("<file>",portal_list[(p*6)+c]);
+                }
+            }
+            page_content.add(content);
+        }
+        return page_content.get(page);
     }
 
     //ページ数取得

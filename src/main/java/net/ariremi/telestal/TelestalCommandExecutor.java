@@ -194,9 +194,25 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("list")){
                 Integer pages = new TelestalList(plugin).GetPages();
-                Integer Last = new TelestalList(plugin).LastPage();
-                String test = pages.toString() + "\n" + Last.toString();
-                sender.sendMessage(test);
+                Integer p;
+                if(args.length == 2){
+                    try {
+                        p = Integer.valueOf(args[1]);
+                    } catch (Exception e){
+                        sender.sendMessage(plugin.getConfig().getString("invalid_value").replace("&","§"));
+                        return true;
+                    }
+                }else {
+                    p = 1;
+                }
+
+                if(args.length == 2 && 0 < p && p <= pages){
+                    sender.sendMessage(new TelestalList(plugin).PageContent(p-1));
+                } else if (pages == 0) {
+                    sender.sendMessage(plugin.getConfig().getString("list_nothing").replace("&","§"));
+                } else {
+                    sender.sendMessage(new TelestalList(plugin).PageContent(0));
+                }
             }
         }
         return true;
