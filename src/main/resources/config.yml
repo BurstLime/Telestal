@@ -40,8 +40,8 @@ inactivate_success: "&2&l<portal>&aのアクティベートを解除しました
 inactivate_fail: "&4&l<portal>&cのアクティベートの解除に失敗しました"
 inactivate_already: "&4<player>&cは&4&l<portal>&cのアクティベートをしていません！"
 
-page_start_line: "&b-- &5&lポータルリスト &9<now>/<pages> &b--"
-page_end_line: " &b------------------------- "
+page_start_line: "&3--- &5&lPortal List &9<now>/<pages> &3---"
+page_end_line: " &3-------------------- "
 page_syntax: "<file>"
 page_previous: "&9&l≪"
 page_next: "&9&l≫"
