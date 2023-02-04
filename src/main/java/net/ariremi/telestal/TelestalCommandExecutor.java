@@ -1,5 +1,6 @@
 package net.ariremi.telestal;
 
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -206,12 +207,39 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     p = 1;
                 }
 
+                //ページ操作処理（前）
+                TextComponent page_previous = new TextComponent(plugin.getConfig().getString("page_previous").replace("&","§"));
+                if(p == 1){
+                    page_previous.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(plugin.getConfig().getString("page_nothing").replace("&","§")).create()));
+                }else{
+                    Integer prev_num = Integer.valueOf(p-1);
+                    page_previous.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(plugin.getConfig().getString("page_previous_text").replace("&","§")).create()));
+                    page_previous.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/telestal list "+prev_num.toString()));
+                }
+                //ページ操作処理（次）
+                TextComponent page_next = new TextComponent(plugin.getConfig().getString("page_next").replace("&","§"));
+                if(p < pages){
+                    Integer next_num = Integer.valueOf(p+1);
+                    page_next.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(plugin.getConfig().getString("page_next_text").replace("&","§")).create()));
+                    page_next.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/telestal list "+next_num));
+                }else{
+                    page_next.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(plugin.getConfig().getString("page_nothing").replace("&","§")).create()));
+                }
+
                 if(args.length == 2 && 0 < p && p <= pages){
-                    sender.sendMessage(new TelestalList(plugin).PageContent(p-1));
+                    BaseComponent[] component = new ComponentBuilder(plugin.getConfig().getString("page_start_line").
+                            replace("&","§").replace("<now>",p.toString()).replace("<pages>",pages.toString())).
+                            append("\n").append(new TelestalList(plugin).PageContent(p-1)).append(page_previous).
+                            append(plugin.getConfig().getString("page_end_line").replace("&","§")).append(page_next).create();
+                    sender.spigot().sendMessage(component);
                 } else if (pages == 0) {
                     sender.sendMessage(plugin.getConfig().getString("list_nothing").replace("&","§"));
                 } else {
-                    sender.sendMessage(new TelestalList(plugin).PageContent(0));
+                    BaseComponent[] component = new ComponentBuilder(plugin.getConfig().getString("page_start_line").
+                            replace("&","§").replace("<now>",p.toString()).replace("<pages>",pages.toString())).
+                            append("\n").append(new TelestalList(plugin).PageContent(0)).append(page_previous).
+                            append(plugin.getConfig().getString("page_end_line").replace("&","§")).append(page_next).create();
+                    sender.spigot().sendMessage(component);
                 }
             }
         }

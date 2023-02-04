@@ -21,12 +21,12 @@ public class TelestalList {
             if (p == GetPages() - 1){
                 for(int c = 0; c < LastPage(); c++){
                     content = content + plugin.getConfig().getString("page_syntax").
-                            replace("&","§").replace("<file>",portal_list[(p*6)+c]);
+                            replace("&","§").replace("<file>",portal_list[(p*6)+c]+"\n");
                 }
             }else {
                 for(int c = 0; c < 6; c++){
                     content = content + plugin.getConfig().getString("page_syntax").
-                            replace("&","§").replace("<file>",portal_list[(p*6)+c]);
+                            replace("&","§").replace("<file>",portal_list[(p*6)+c]+"\n");
                 }
             }
             page_content.add(content);
