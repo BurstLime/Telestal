@@ -1,5 +1,6 @@
 package net.ariremi.telestal;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -45,7 +46,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         + "/ts rename <name> <new_name>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_rename").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts info [portal|player] <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts list " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts clear [player|all] " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_clear").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts reset <player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_reset").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts activate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts inactivate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
 
@@ -194,13 +195,14 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
                 }
             } else if (args[0].equalsIgnoreCase("list")){
+                //list
                 Integer pages = new TelestalList(plugin).GetPages();
                 Integer p;
                 if(args.length == 2){
                     try {
                         p = Integer.valueOf(args[1]);
                     } catch (Exception e){
-                        sender.sendMessage(plugin.getConfig().getString("invalid_value").replace("&","§"));
+                        sender.sendMessage(prefix+plugin.getConfig().getString("invalid_value").replace("&","§"));
                         return true;
                     }
                 }else {
@@ -210,9 +212,28 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 if(args.length == 2 && 0 < p && p <= pages){
                     sender.spigot().sendMessage(new TelestalList(plugin).PageContent(p-1));
                 } else if (pages == 0) {
-                    sender.sendMessage(plugin.getConfig().getString("list_nothing").replace("&","§"));
+                    sender.sendMessage(prefix+plugin.getConfig().getString("list_nothing").replace("&","§"));
                 } else {
                     sender.spigot().sendMessage(new TelestalList(plugin).PageContent(0));
+                }
+            } else if (args[0].equalsIgnoreCase("reset")){
+                //reset
+                Player player;
+                if (args.length == 2) {
+                    try {
+                        player = plugin.getServer().getPlayer(args[1]);
+                        player.getUniqueId().toString();
+                    }catch (Exception e){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                        return true;
+                    }
+                } else {
+                    player = (Player) sender;
+                }
+                try {
+                    ResetPlayer(sender,player);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }
@@ -296,6 +317,40 @@ public class TelestalCommandExecutor implements CommandExecutor {
             inputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void ResetPlayer(CommandSender sender,Player player) throws FileNotFoundException {
+        String prefix = plugin.getConfig().getString("prefix")+" ";
+        prefix = prefix.replace("&","§");
+
+        String[] filelist = new TelestalList(plugin).PortalList();
+        Integer count = 0;
+        Integer error = 0;
+        for (int i = 0; i < filelist.length; i++){
+
+            List<String> activate_player = this.getactivateplayer(player, filelist[i]);
+            if (activate_player == null) {
+                continue;
+            }
+
+            if (activate_player.contains(player.getUniqueId().toString())) {
+                activate_player.remove(player.getUniqueId().toString());
+                try {
+                    new TelestalActivate(plugin).PlayerActivate(filelist[i], activate_player);
+                    count++;
+                } catch (FileNotFoundException e) {
+                    error++;
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        sender.sendMessage(prefix+plugin.getConfig().getString("reset_success").
+                replace("&","§").replace("<count>",count.toString()).replace("<player>",player.getName()));
+        if (0 < error){
+            sender.sendMessage(prefix+plugin.getConfig().getString("reset_error").
+                    replace("&","§").replace("<count>",error.toString()));
         }
     }
 }

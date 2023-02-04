@@ -5,7 +5,6 @@ import net.md_5.bungee.api.chat.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TelestalList {
     Telestal plugin;
