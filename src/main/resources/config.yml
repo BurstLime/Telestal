@@ -52,3 +52,8 @@ list_nothing: "&cポータルが存在しません"
 
 reset_success: "&a<count>のアクティベートされたポータルのデータをリセットしました！\n対象: <player>"
 reset_error: "&c<count>のエラーが発生しました！"
+
+info_portal_start_line: "&3-------- &5&l<portal>&5の情報 &3--------"
+info_portal_content: "&9ワールド: <world>\n位置: <x>, <y>, <z>\nアクティベート人数: <activated>"
+info_player_start_line: "&3------- &5&l<player>&5の情報 &3-------"
+info_player_content: "&9解放済みポータル数: <activated>/<inactivate>\nアクティベート率: <chance>%"

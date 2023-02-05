@@ -1,7 +1,5 @@
 package net.ariremi.telestal;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import net.md_5.bungee.api.chat.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -13,8 +11,6 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -47,25 +43,25 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         + "/ts info [portal|player] <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts list " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts reset <player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_reset").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts activate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts inactivate [<name>|all] <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
+                        + "/ts activate <name> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts inactivate <name> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
 
                 sender.sendMessage(HelpMessage);
             } else if (args[0].equalsIgnoreCase("activate")) {
                 //activate
-                if (args[1].equals("all")) {
-                    sender.sendMessage("現在、未実装です。");
-                    return true;
-                }
-
                 Player player;
                 if (args.length == 3) {
                     try {
                         player = plugin.getServer().getPlayer(args[2]);
                         player.getUniqueId().toString();
                     }catch (Exception e){
-                        sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
-                        return true;
+                        try{
+                            player = plugin.getServer().getPlayer(String.valueOf(plugin.getServer().getOfflinePlayer(plugin.getServer().getPlayerUniqueId(args[2]))));
+                            player.getUniqueId().toString();
+                        }catch (Exception f){
+                            sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                            return true;
+                        }
                     }
                 } else {
                     player = (Player) sender;
@@ -93,19 +89,19 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("inactivate")) {
                 //inactivate
-                if (args[1].equals("all")) {
-                    sender.sendMessage("現在、未実装です。");
-                    return true;
-                }
-
                 Player player;
                 if (args.length == 3) {
                     try {
                         player = plugin.getServer().getPlayer(args[2]);
                         player.getUniqueId().toString();
                     }catch (Exception e){
-                        sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
-                        return true;
+                        try{
+                            player = plugin.getServer().getPlayer(String.valueOf(plugin.getServer().getOfflinePlayer(plugin.getServer().getPlayerUniqueId(args[2]))));
+                            player.getUniqueId().toString();
+                        }catch (Exception f){
+                            sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                            return true;
+                        }
                     }
                 } else {
                     player = (Player) sender;
@@ -235,17 +231,38 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+            } else if (args[0].equalsIgnoreCase("info") && args.length == 3) {
+                //info
+                if(args[1].equalsIgnoreCase("portal")){
+                    new TelestalInformation(plugin).SendPortalInfo(sender,args[2]);
+                } else if (args[1].equalsIgnoreCase("player")) {
+                    Player player;
+                    try {
+                        player = plugin.getServer().getPlayer(args[2]);
+                        player.getUniqueId().toString();
+                    }catch (Exception e){
+                        try{
+                            player = plugin.getServer().getPlayer(String.valueOf(plugin.getServer().getOfflinePlayer(plugin.getServer().getPlayerUniqueId(args[2]))));
+                            player.getUniqueId().toString();
+                        }catch (Exception f){
+                            sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                            return true;
+                        }
+                    }
+                    new TelestalInformation(plugin).SendPlayerInfo(sender, player);
+                }
             }
         }
         return true;
     }
 
-    private List getactivateplayer(CommandSender sender, String name){
+    //アクティベートプレイヤーをリストで取得
+    public List getactivateplayer(CommandSender sender, String portal){
         String prefix = plugin.getConfig().getString("prefix")+" ";
         prefix = prefix.replace("&","§");
 
         File File = new File(plugin.getDataFolder().getPath(),"portal");
-        File = new File(File,name+".yml");
+        File = new File(File,portal+".yml");
         if(!Files.exists(File.toPath())) {
             sender.sendMessage(prefix + plugin.getConfig().getString("portal_not_found").replace("&","§"));
             return null;
@@ -327,9 +344,9 @@ public class TelestalCommandExecutor implements CommandExecutor {
         String[] filelist = new TelestalList(plugin).PortalList();
         Integer count = 0;
         Integer error = 0;
-        for (int i = 0; i < filelist.length; i++){
+        for (String s : filelist) {
 
-            List<String> activate_player = this.getactivateplayer(player, filelist[i]);
+            List<String> activate_player = this.getactivateplayer(player, s);
             if (activate_player == null) {
                 continue;
             }
@@ -337,7 +354,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
             if (activate_player.contains(player.getUniqueId().toString())) {
                 activate_player.remove(player.getUniqueId().toString());
                 try {
-                    new TelestalActivate(plugin).PlayerActivate(filelist[i], activate_player);
+                    new TelestalActivate(plugin).PlayerActivate(s, activate_player);
                     count++;
                 } catch (FileNotFoundException e) {
                     error++;

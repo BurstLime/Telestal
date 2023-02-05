@@ -14,6 +14,7 @@ public class TelestalActivate {
         this.plugin = plugin;
     }
 
+    //プレイヤーのアクティベート
     public void PlayerActivate(String name, List<String> playerlist) throws FileNotFoundException {
         File File = new File(plugin.getDataFolder().getPath(),"portal");
         File = new File(File,name+".yml");
