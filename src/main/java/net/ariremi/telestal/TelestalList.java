@@ -20,13 +20,15 @@ public class TelestalList {
             String content = "";
             if (p == GetPages() - 1){
                 for(int c = 0; c < LastPage(); c++){
+                    Integer num = Integer.valueOf((p*8)+c+1);
                     content = content + plugin.getConfig().getString("page_syntax").
-                            replace("&","§").replace("<file>",portal_list[(p*8)+c]+"\n");
+                            replace("&","§").replace("<file>",portal_list[(p*8)+c]+"\n").replace("<num>",num.toString());
                 }
             }else {
                 for(int c = 0; c < 8; c++){
+                    Integer num = Integer.valueOf((p*8)+c+1);
                     content = content + plugin.getConfig().getString("page_syntax").
-                            replace("&","§").replace("<file>",portal_list[(p*8)+c]+"\n");
+                            replace("&","§").replace("<file>",portal_list[(p*8)+c]+"\n").replace("<num>",num.toString());
                 }
             }
 

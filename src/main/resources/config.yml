@@ -42,7 +42,7 @@ inactivate_already: "&4<player>&cは&4&l<portal>&cのアクティベートをし
 
 page_start_line: "&3--- &5&lPortal List &9<now>/<pages> &3---"
 page_end_line: " &3-------------------- "
-page_syntax: "<file>"
+page_syntax: "&b<num>. &a<file>"
 page_previous: "&9&l≪"
 page_next: "&9&l≫"
 page_previous_text: "前のページ"
