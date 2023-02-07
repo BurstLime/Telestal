@@ -1,8 +1,10 @@
 package net.ariremi.telestal;
 
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class TelestalTabComplete implements TabCompleter {
                 } else if (args[0].equalsIgnoreCase("list")) {
                     List<String> pagelist = new ArrayList<>();
                     for(int i = 0; i < new TelestalList(plugin).GetPages(); i++){
-                        pagelist.add(Integer.toString(i));
+                        pagelist.add(Integer.toString(i+1));
                     }
                     return Arrays.asList(pagelist.toArray(new String[pagelist.size()]));
                 } else if (args[0].equalsIgnoreCase("remove")||args[0].equalsIgnoreCase("set")||
