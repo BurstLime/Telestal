@@ -47,7 +47,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         + "/ts inactivate <name> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
 
                 sender.sendMessage(HelpMessage);
-            } else if (args[0].equalsIgnoreCase("activate")) {
+            } else if (args[0].equalsIgnoreCase("activate")&& 1 < args.length) {
                 //activate
                 Player player;
                 if (args.length == 3) {
@@ -67,7 +67,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     player = (Player) sender;
                 }
 
-                List<String> activate_player = this.getactivateplayer(player, args[1]);
+                List<String> activate_player = getactivateplayer(player, args[1]);
                 if (activate_player == null) {
                     return true;
                 }
@@ -87,7 +87,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         throw new RuntimeException(e);
                     }
                 }
-            } else if (args[0].equalsIgnoreCase("inactivate")) {
+            } else if (args[0].equalsIgnoreCase("inactivate") && 1 < args.length) {
                 //inactivate
                 Player player;
                 if (args.length == 3) {

@@ -15,7 +15,6 @@ public class TelestalList {
     //ページ内容
     public TextComponent PageContent(Integer page){
         String[] portal_list = PortalList();
-        Integer amount = portal_list.length;
         List<TextComponent> page_content = new ArrayList<>();
         for(int p = 0; p < GetPages(); p++){
             String content = "";
@@ -105,9 +104,9 @@ public class TelestalList {
         File File = new File(plugin.getDataFolder().getPath(),"portal");
         String[] files = File.list();
         List<String> ymlfile = new ArrayList<String>();
-        for(int i = 0; i < files.length; i++){
-            if(files[i].substring(files[i].length()-4).equals(".yml")){
-                ymlfile.add(files[i].replace(".yml",""));
+        for (String file : files) {
+            if (file.substring(file.length() - 4).equals(".yml")) {
+                ymlfile.add(file.replace(".yml", ""));
             }
         }
         return ymlfile.toArray(new String[ymlfile.size()]);

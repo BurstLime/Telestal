@@ -1,13 +1,9 @@
 package net.ariremi.telestal;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public final class Telestal extends JavaPlugin {
 
@@ -24,6 +20,7 @@ public final class Telestal extends JavaPlugin {
 
         getLogger().info("起動しました！");
         getCommand("telestal").setExecutor(new TelestalCommandExecutor(this));
+        getCommand("telestal").setTabCompleter(new TelestalTabComplete(this));
     }
 
     @Override
