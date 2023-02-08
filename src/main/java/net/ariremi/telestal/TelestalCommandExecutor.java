@@ -35,16 +35,16 @@ public class TelestalCommandExecutor implements CommandExecutor {
             if(args.length == 0 || args[0].equalsIgnoreCase("help")){
                 String HelpMessage = ChatColor.BLUE + "<=== Telestal Help ===>" + ChatColor.RESET + "\n"
                         + "/ts help " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_help").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts give <name> <任意:使用回数> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_give").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts give <portal> <amount> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_give").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts create <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_create").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts remove <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_remove").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts set <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_set").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts rename <name> <new_name>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_rename").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts info [portal|player] <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts list " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts remove <portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_remove").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts set <portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_set").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts rename <portal> <new_name>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_rename").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts info [portal|player] <portal|player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts list <page>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts reset <player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_reset").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts activate <name> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts inactivate <name> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
+                        + "/ts activate <portal> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts inactivate <portal> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
 
                 sender.sendMessage(HelpMessage);
             } else if (args[0].equalsIgnoreCase("activate")&& 1 < args.length) {
@@ -250,6 +250,37 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         }
                     }
                     new TelestalInformation(plugin).SendPlayerInfo(sender, player);
+                }
+            } else if (args[0].equalsIgnoreCase("give") && 2 <= args.length && args.length <= 4) {
+                //give
+                if(args.length == 2){
+                    new TelestalItem(plugin).GiveTelestal(sender,args[1],(Player) sender,1);
+                } else if (args.length == 3) {
+                    Integer amo;
+                    try {
+                        amo = Integer.valueOf(args[2]);
+                    }catch (Exception e){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("invalid_value").replace("&","§"));
+                        return true;
+                    }
+                    new TelestalItem(plugin).GiveTelestal(sender,args[1],(Player) sender,amo);
+                } else if (args.length == 4) {
+                    Integer amo;
+                    try {
+                        amo = Integer.valueOf(args[2]);
+                    }catch (Exception e){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("invalid_value").replace("&","§"));
+                        return true;
+                    }
+                    Player player;
+                    try{
+                        player = plugin.getServer().getPlayer(args[3]);
+                        player.getUniqueId().toString();
+                    }catch (Exception e){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                        return true;
+                    }
+                    new TelestalItem(plugin).GiveTelestal(sender,args[1],player,amo);
                 }
             }
         }

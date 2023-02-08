@@ -18,6 +18,8 @@ command_inactivate: "&a指定プレイヤーのポータルを無効化"
 portal_not_found: "&cポータルが見つかりません！"
 player_not_found: "&cプレイヤーが見つかりません！"
 
+give_success: "&2<player>&aに&2<portal>&aの転移結晶を&2<amount>個&a与えました"
+
 create_success: "&aポータル &2&l<portal> &aの作成に成功しました"
 create_fail: "&cポータル &4&l<portal> &cの作成に失敗しました"
 create_duplication: "&c既にそのポータルは存在しています！"

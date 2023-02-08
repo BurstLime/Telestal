@@ -21,6 +21,7 @@ public final class Telestal extends JavaPlugin {
         getLogger().info("起動しました！");
         getCommand("telestal").setExecutor(new TelestalCommandExecutor(this));
         getCommand("telestal").setTabCompleter(new TelestalTabComplete(this));
+        getServer().getPluginManager().registerEvents(new TelestalItem(this),this);
     }
 
     @Override
