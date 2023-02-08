@@ -7,7 +7,6 @@ command_help: "&aヘルプを表示"
 command_create: "&aポータルを作成"
 command_remove: "&aポータルを削除"
 command_set: "&aポータルの位置を再設定"
-command_rename: "&a名前を変更"
 command_info: "&aポータル・プレイヤーの情報を表示"
 command_give: "&a転移結晶を与える"
 command_list: "&aポータルのリストを表示"
@@ -17,6 +16,7 @@ command_inactivate: "&a指定プレイヤーのポータルを無効化"
 
 portal_not_found: "&cポータルが見つかりません！"
 player_not_found: "&cプレイヤーが見つかりません！"
+portal_not_activate: "&cポータルがアクティベートされていません！"
 
 give_success: "&2<player>&aに&2<portal>&aの転移結晶を&2<amount>個&a与えました"
 
@@ -26,10 +26,6 @@ create_duplication: "&c既にそのポータルは存在しています！"
 
 remove_success: "&aポータル &2&l<portal> &aの削除に成功しました"
 remove_fail: "&cポータル &4&l<portal> &cの削除に失敗しました"
-
-rename_success: "&aポータル &2&l<portal> &aを &b&l<new_portal> &aに変更しました"
-rename_fail: "&cポータル &4&l<portal> &cの名前変更に失敗しました"
-rename_duplication: "&4&l<new_portal> &cというポータルは既に存在するため、変更に失敗しました"
 
 set_success: "&aポータル &2&l<portal> &aの位置を変更しました"
 set_fail: "&cポータル &4&l<portal> &cの位置変更に失敗しました"

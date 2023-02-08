@@ -15,9 +15,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
-import java.nio.FloatBuffer;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -29,11 +29,28 @@ public class TelestalItem implements Listener {
 
     @EventHandler
     public void ClickTelestal(PlayerInteractEvent e) {
+        String prefix = plugin.getConfig().getString("prefix")+" ";
+        prefix = prefix.replace("&","§");
+
         Player player = e.getPlayer();
         Action action = e.getAction();
+        ItemStack item = e.getItem();
+
+        ArrayList<String> telestal_lore = new ArrayList<>();
+        telestal_lore.add(ChatColor.GREEN+"右クリック"+ChatColor.WHITE+"で特定の場所へ転移する結晶");
+        telestal_lore.add(ChatColor.DARK_RED+"発見済みポータルにのみ転移可能");
+
         if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-            if (player.getItemInHand().getType() == Material.DIAMOND) {
-                player.teleport(getLocation(e.getPlayer(),"aaa"));
+            if (!(item==null)&&item.hasItemMeta()&&
+                    item.getItemMeta().getDisplayName().contains("§b§l転移結晶 §a- ")&&item.getType() == Material.DIAMOND&&item.getLore().equals(telestal_lore)) {
+                String portalname = item.getItemMeta().getDisplayName().replace("§b§l転移結晶 §a- §d","");
+                List getPortal = new TelestalCommandExecutor(plugin).getactivateplayer(player,portalname);
+                if(getPortal.contains(player.getUniqueId().toString())){
+                    player.teleport(getLocation(e.getPlayer(),portalname));
+                    item.setAmount(item.getAmount()-1);
+                }else{
+                    player.sendMessage(prefix+plugin.getConfig().getString("portal_not_activate").replace("&","§"));
+                }
             }
         }
     }
@@ -48,7 +65,7 @@ public class TelestalItem implements Listener {
         if(!Files.exists(File.toPath())) {
             sender.sendMessage(prefix + plugin.getConfig().getString("portal_not_found").replace("&", "§"));
         }else {
-            ItemStack telestal = new ItemStack(Material.DIAMOND);
+            ItemStack telestal = new ItemStack(Material.DIAMOND, amount);
             ItemMeta telestal_meta = telestal.getItemMeta();
 
             telestal_meta.setDisplayName("§b§l転移結晶 §a- "+ChatColor.LIGHT_PURPLE+portal);
@@ -59,9 +76,8 @@ public class TelestalItem implements Listener {
             telestal_meta.setLore(telestal_lore);
 
             telestal.setItemMeta(telestal_meta);
-            for(int i = 0; i < amount; i++){
-                player.getInventory().addItem(telestal);
-            }
+            player.getInventory().addItem(telestal);
+
             sender.sendMessage(prefix+plugin.getConfig().getString("give_success").replace("&","§").
                     replace("<player>",player.getName()).replace("<portal>",portal).replace("<amount>",amount.toString()));
         }

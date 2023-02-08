@@ -39,7 +39,6 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         + "/ts create <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_create").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts remove <portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_remove").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts set <portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_set").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts rename <portal> <new_name>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_rename").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts info [portal|player] <portal|player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts list <page>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts reset <player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_reset").replace("&","§") + ChatColor.RESET + "\n"
@@ -152,26 +151,6 @@ public class TelestalCommandExecutor implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("remove") && args.length == 2) {
                 //remove
                 this.RemoveFile(sender,args[1]);
-            } else if (args[0].equalsIgnoreCase("rename") && args.length == 3) {
-                //rename
-                File now = new File(plugin.getDataFolder().getPath(),"portal");
-                now = new File(now,args[1]+".yml");
-                File newFile = new File(plugin.getDataFolder().getPath(),"portal");
-                newFile = new File(newFile,args[2]+".yml");
-                if(Files.exists(now.toPath()) && !Files.exists((newFile.toPath()))){
-                    if(now.renameTo(newFile)){
-                        sender.sendMessage(prefix+plugin.getConfig().getString("rename_success").
-                                replace("&","§").replace("<portal>",args[1]).replace("<new_portal>",args[2]));
-                    } else {
-                        sender.sendMessage(prefix+plugin.getConfig().getString("rename_fail").
-                                replace("&","§").replace("<portal>",args[1]));
-                    }
-                } else if (Files.exists(now.toPath()) && Files.exists(newFile.toPath())) {
-                    sender.sendMessage(prefix+plugin.getConfig().getString("rename_duplication").
-                            replace("&","§").replace("<new_portal>",args[2]));
-                } else{
-                    sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
-                }
             } else if (args[0].equalsIgnoreCase("set") && args.length == 2) {
                 //set
                 File File = new File(plugin.getDataFolder().getPath(),"portal");

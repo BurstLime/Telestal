@@ -1,17 +1,10 @@
 package net.ariremi.telestal;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.representer.Representer;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class TelestalCreate {
