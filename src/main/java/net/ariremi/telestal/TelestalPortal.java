@@ -8,10 +8,7 @@ import me.filoghost.holographicdisplays.api.hologram.line.HologramLineClickEvent
 import me.filoghost.holographicdisplays.api.hologram.line.HologramLineClickListener;
 import me.filoghost.holographicdisplays.api.hologram.line.ItemHologramLine;
 import me.filoghost.holographicdisplays.api.hologram.line.TextHologramLine;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -77,6 +74,8 @@ public class TelestalPortal implements Listener {
                     player.sendMessage(prefix+plugin.getConfig().getString("portal_discover").replace("&","§").replace("<portal>",portal_list[i]));
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
                     PortalLoad();
+                }else{
+                    player.sendTitle("", ChatColor.AQUA+portal_list[i],5,60, 5);
                 }
             }
         }
