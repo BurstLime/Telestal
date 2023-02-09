@@ -45,8 +45,8 @@ public class TelestalItem implements Listener {
                 String portalname = item.getItemMeta().getDisplayName().replace("§b§l転移結晶 §a- §d","");
                 List getPortal = new TelestalCommandExecutor(plugin).getactivateplayer(player,portalname);
                 if(getPortal.contains(player.getUniqueId().toString())){
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,25,8));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,15,255));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,25,8,true,false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,15,255,true,false));
                     player.spawnParticle(Particle.ENCHANTMENT_TABLE,player.getLocation(),500,0.5,1,0.5,0.2);
                     player.spawnParticle(Particle.PORTAL,player.getLocation(),500,0.5,1,0.5,0.5);
                     player.teleport(getLocation(e.getPlayer(),portalname));
