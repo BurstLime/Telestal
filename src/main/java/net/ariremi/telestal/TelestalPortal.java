@@ -36,6 +36,7 @@ public class TelestalPortal implements Listener {
         this.plugin = plugin;
     }
 
+
     public void PortalLoad(){
         HolographicDisplaysAPI api = HolographicDisplaysAPI.get(plugin);
         String[] portal_list = new TelestalList(plugin).PortalList();
