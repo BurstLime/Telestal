@@ -171,6 +171,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 } else {
                     sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
                 }
+                new TelestalPortal(plugin).PortalLoad();
             } else if (args[0].equalsIgnoreCase("list")){
                 //list
                 Integer pages = new TelestalList(plugin).GetPages();

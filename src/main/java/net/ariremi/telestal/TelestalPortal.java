@@ -1,16 +1,25 @@
 package net.ariremi.telestal;
 
+import com.comphenix.protocol.PacketType;
 import me.filoghost.holographicdisplays.api.HolographicDisplaysAPI;
 import me.filoghost.holographicdisplays.api.hologram.Hologram;
 import me.filoghost.holographicdisplays.api.hologram.VisibilitySettings;
+import me.filoghost.holographicdisplays.api.hologram.line.HologramLineClickEvent;
+import me.filoghost.holographicdisplays.api.hologram.line.HologramLineClickListener;
 import me.filoghost.holographicdisplays.api.hologram.line.ItemHologramLine;
 import me.filoghost.holographicdisplays.api.hologram.line.TextHologramLine;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -20,7 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class TelestalPortal {
+public class TelestalPortal implements Listener {
     Telestal plugin;
 
     public TelestalPortal(Telestal plugin){
@@ -46,6 +55,29 @@ public class TelestalPortal {
                     replace("&","§").replace("<portal>",portal_list[i]));
             ItemHologramLine itemLine = hologram.getLines().appendItem(new ItemStack(Material.DIAMOND));
             TextHologramLine textLine2 = hologram.getLines().appendText(plugin.getConfig().getString("portal_hologram_bottom").replace("&","§"));
+        }
+    }
+
+    //ポータルのアクティベートイベント
+    @EventHandler
+    public void PortalActivate(PlayerMoveEvent e) throws FileNotFoundException {
+        String prefix = plugin.getConfig().getString("prefix")+" ";
+        prefix = prefix.replace("&","§");
+
+        Player player = e.getPlayer();
+        String[] portal_list = new TelestalList(plugin).PortalList();
+        for (int i = 0; i < portal_list.length; i++){
+            if(Objects.requireNonNull(getLocation(portal_list[i])).getBlockX() == player.getLocation().getBlockX() &&
+                    Objects.requireNonNull(getLocation(portal_list[i])).getBlockZ() == player.getLocation().getBlockZ()){
+                List<String> activate_player = new TelestalCommandExecutor(plugin).getactivateplayer(player,portal_list[i]);
+                if(!activate_player.contains(player.getUniqueId().toString())){
+                    activate_player.add(player.getUniqueId().toString());
+                    new TelestalActivate(plugin).PlayerActivate(portal_list[i], activate_player);
+                    player.sendMessage(prefix+plugin.getConfig().getString("portal_discover").replace("&","§").replace("<portal>",portal_list[i]));
+                    player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
+                    PortalLoad();
+                }
+            }
         }
     }
 
