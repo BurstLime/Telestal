@@ -86,6 +86,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         throw new RuntimeException(e);
                     }
                 }
+                new TelestalPortal(plugin).PortalLoad();
             } else if (args[0].equalsIgnoreCase("inactivate") && 1 < args.length) {
                 //inactivate
                 Player player;
@@ -106,7 +107,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     player = (Player) sender;
                 }
 
-                List<String> activate_player = this.getactivateplayer(player, args[1]);
+                List<String> activate_player = getactivateplayer(player, args[1]);
                 if (activate_player == null) {
                     return true;
                 }
@@ -126,6 +127,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         throw new RuntimeException(e);
                     }
                 }
+                new TelestalPortal(plugin).PortalLoad();
             } else if (args[0].equalsIgnoreCase("create") && args.length == 2) {
                 //create
                 File File = new File(plugin.getDataFolder().getPath(),"portal");
@@ -313,6 +315,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
         }else {
             sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
         }
+        new TelestalPortal(plugin).PortalLoad();
     }
 
     private void SetLocation(String name, Location loc) throws FileNotFoundException {

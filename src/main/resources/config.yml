@@ -17,6 +17,8 @@ command_inactivate: "&a指定プレイヤーのポータルを無効化"
 portal_not_found: "&cポータルが見つかりません！"
 player_not_found: "&cプレイヤーが見つかりません！"
 portal_not_activate: "&cポータルがアクティベートされていません！"
+portal_hologram_top: "&d&l<portal>"
+portal_hologram_bottom: "&aクリックでアクティベート"
 
 give_success: "&2<player>&aに&2<portal>&aの転移結晶を&2<amount>個&a与えました"
 
