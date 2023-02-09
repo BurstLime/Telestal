@@ -1,9 +1,6 @@
 package net.ariremi.telestal;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +9,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -46,7 +45,12 @@ public class TelestalItem implements Listener {
                 String portalname = item.getItemMeta().getDisplayName().replace("§b§l転移結晶 §a- §d","");
                 List getPortal = new TelestalCommandExecutor(plugin).getactivateplayer(player,portalname);
                 if(getPortal.contains(player.getUniqueId().toString())){
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,25,8));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,15,255));
+                    player.spawnParticle(Particle.ENCHANTMENT_TABLE,player.getLocation(),500,0.5,1,0.5,0.2);
+                    player.spawnParticle(Particle.PORTAL,player.getLocation(),500,0.5,1,0.5,0.5);
                     player.teleport(getLocation(e.getPlayer(),portalname));
+                    player.playSound(player.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT,SoundCategory.MASTER, 0.3f,1);
                     item.setAmount(item.getAmount()-1);
                 }else{
                     player.sendMessage(prefix+plugin.getConfig().getString("portal_not_activate").replace("&","§"));
