@@ -2,6 +2,7 @@ name: Telestal
 version: '${project.version}'
 main: net.ariremi.telestal.Telestal
 authors: [ BurstLime ]
+depend: [ HolographicDisplays, ProtocolLib ]
 commands:
   telestal:
     aliases: [ ts ]
