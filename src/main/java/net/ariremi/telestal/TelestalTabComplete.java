@@ -17,7 +17,7 @@ public class TelestalTabComplete implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args){
         String[] portal_list = new TelestalList(plugin).PortalList();
-        String[] command_list = {"help","give","create","remove","set","info","list","reset","activate","inactivate"};
+        String[] command_list = {"help","give","create","remove","set","info","list","reset","reload","tp","activate","inactivate"};
         if(command.getName().equalsIgnoreCase("telestal")) {
             if(args.length == 1){
                 if(args[0].length() == 0){
@@ -38,7 +38,7 @@ public class TelestalTabComplete implements TabCompleter {
                     return Arrays.asList(pagelist.toArray(new String[pagelist.size()]));
                 } else if (args[0].equalsIgnoreCase("remove")||args[0].equalsIgnoreCase("set")
                         ||args[0].equalsIgnoreCase("activate")||args[0].equalsIgnoreCase("inactivate")
-                        ||args[0].equalsIgnoreCase("give")){
+                        ||args[0].equalsIgnoreCase("give")||args[0].equalsIgnoreCase("tp")){
                     if(args[1].length() == 0){
                         return Arrays.asList(portal_list);
                     }else{
