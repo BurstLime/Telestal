@@ -34,19 +34,26 @@ public class TelestalCommandExecutor implements CommandExecutor {
 
         if(command.getName().equalsIgnoreCase("telestal")){
             if(args.length == 0 || args[0].equalsIgnoreCase("help")){
-                String HelpMessage = ChatColor.BLUE + "<=== Telestal Help ===>" + ChatColor.RESET + "\n"
-                        + "/ts help " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_help").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts give <portal> <amount> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_give").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts create <name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_create").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts remove <portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_remove").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts set <portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_set").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts info [portal|player] <portal|player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts list <page>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts reset <player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_reset").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts activate <portal> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
-                        + "/ts inactivate <portal> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
+                String HelpMessage1 = ChatColor.BLUE + "♢---- Telestal Help §3(1/2) §9----♢" + ChatColor.RESET + "\n"
+                        + "/ts help §8<page> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_help").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts give §7<portal> §8<amount> <player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_give").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts create §7<name> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_create").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts remove §7<portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_remove").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts set §7<portal> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_set").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts reset §7<player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_reset").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts activate §7<portal> §8<player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_activate").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts inactivate §7<portal> §8<player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts reload " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_reload").replace("&","§") + ChatColor.RESET + "\n";
+                String HelpMessage2 = ChatColor.BLUE + "♢---- Telestal Help §3(2/2) §9----♢" + ChatColor.RESET + "\n"
+                        + "/ts info §7[portal§8|§7player] <portal§8|§7player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_info").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts list §8<page> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_list").replace("&","§") + ChatColor.RESET + "\n"
+                        + "/ts tp §7<portal> §8<player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_tp").replace("&","§") + ChatColor.RESET + "\n";
 
-                sender.sendMessage(HelpMessage);
+                if(args.length == 2&&args[1].equalsIgnoreCase("2")){
+                    sender.sendMessage(HelpMessage2);
+                }else {
+                    sender.sendMessage(HelpMessage1);
+                }
                 return true;
             } else if (args[0].equalsIgnoreCase("activate")&& 1 < args.length) {
                 //activate
