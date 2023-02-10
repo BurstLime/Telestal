@@ -40,7 +40,6 @@ public class TelestalPortal implements Listener {
             for (int a = 0; a < active_player.size(); a++){
                 UUID uuid = UUID.fromString(active_player.get(a));
                 Player player = plugin.getServer().getPlayer(uuid);
-                System.out.println(player.getName());
                 visibilitySettings.setIndividualVisibility(player, VisibilitySettings.Visibility.HIDDEN);
             }
             TextHologramLine textLine = hologram.getLines().appendText(plugin.getConfig().getString("portal_hologram_top").

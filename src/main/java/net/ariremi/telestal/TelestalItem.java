@@ -40,7 +40,10 @@ public class TelestalItem implements Listener {
         telestal_lore.add(ChatColor.DARK_RED+"発見済みポータルにのみ転移可能");
 
         if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-            if (!(item==null)&&item.hasItemMeta()&&
+            if(e.getMaterial()!=Material.DIAMOND){
+                return;
+            }
+            if (e.hasItem()&&item.hasItemMeta()&&
                     item.getItemMeta().getDisplayName().contains("§b§l転移結晶 §a- ")&&item.getType() == Material.DIAMOND&&item.getLore().equals(telestal_lore)) {
                 String portalname = item.getItemMeta().getDisplayName().replace("§b§l転移結晶 §a- §d","");
                 List getPortal = new TelestalCommandExecutor(plugin).getactivateplayer(player,portalname);
