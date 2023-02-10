@@ -44,6 +44,7 @@ public class TelestalItem implements Listener {
                     item.getItemMeta().getDisplayName().contains("§b§l転移結晶 §a- ")&&item.getType() == Material.DIAMOND&&item.getLore().equals(telestal_lore)) {
                 String portalname = item.getItemMeta().getDisplayName().replace("§b§l転移結晶 §a- §d","");
                 List getPortal = new TelestalCommandExecutor(plugin).getactivateplayer(player,portalname);
+                if(getPortal == null){return;}
                 if(getPortal.contains(player.getUniqueId().toString())){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,25,8,true,false));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,15,255,true,false));
