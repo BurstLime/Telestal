@@ -297,6 +297,8 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 Location loc = new TelestalItem(plugin).getLocation((Player) sender,args[1]);
                 if(loc!=null){
                     player.teleport(loc);
+                    sender.sendMessage(prefix+plugin.getConfig().getString("tp_success").replace("&","§").
+                            replace("<player>",player.getName()).replace("<portal>",args[1]));
                 }
                 return true;
             }

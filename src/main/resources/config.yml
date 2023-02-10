@@ -9,11 +9,13 @@ command_create: "&aポータルを作成"
 command_remove: "&aポータルを削除"
 command_set: "&aポータルの位置を再設定"
 command_info: "&aポータル・プレイヤーの情報を表示"
+command_tp: "&aポータルにテレポート"
 command_give: "&a転移結晶を与える"
 command_list: "&aポータルのリストを表示"
 command_reset: "&aデータを削除"
 command_activate: "&a指定プレイヤーのポータルを有効化"
 command_inactivate: "&a指定プレイヤーのポータルを無効化"
+command_reload: "&aリロード"
 
 portal_not_found: "&cポータルが見つかりません！"
 player_not_found: "&cプレイヤーが見つかりません！"
@@ -37,6 +39,8 @@ remove_fail: "&cポータル &4&l<portal> &cの削除に失敗しました"
 
 set_success: "&aポータル &2&l<portal> &aの位置を変更しました"
 set_fail: "&cポータル &4&l<portal> &cの位置変更に失敗しました"
+
+tp_success: "&2<player>&aは&2<portal>&aにテレポートしました"
 
 activate_success: "&2&l<portal>&aをアクティベートしました！\n対象: <player>"
 activate_fail: "&4&l<portal>&cのアクティベートに失敗しました"
