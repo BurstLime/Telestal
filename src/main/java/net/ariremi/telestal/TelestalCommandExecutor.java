@@ -89,6 +89,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     }
                 }
                 new TelestalPortal(plugin).PortalLoad();
+                return true;
             } else if (args[0].equalsIgnoreCase("inactivate") && 1 < args.length) {
                 //inactivate
                 Player player;
@@ -130,6 +131,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     }
                 }
                 new TelestalPortal(plugin).PortalLoad();
+                return true;
             } else if (args[0].equalsIgnoreCase("create") && args.length == 2) {
                 //create
                 File File = new File(plugin.getDataFolder().getPath(),"portal");
@@ -152,9 +154,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         throw new RuntimeException(e);
                     }
                 }
+                return true;
             } else if (args[0].equalsIgnoreCase("remove") && args.length == 2) {
                 //remove
                 this.RemoveFile(sender,args[1]);
+                return true;
             } else if (args[0].equalsIgnoreCase("set") && args.length == 2) {
                 //set
                 File File = new File(plugin.getDataFolder().getPath(),"portal");
@@ -237,8 +241,8 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         }
                     }
                     new TelestalInformation(plugin).SendPlayerInfo(sender, player);
-                    return true;
                 }
+                return true;
             } else if (args[0].equalsIgnoreCase("give") && 2 <= args.length && args.length <= 4) {
                 //give
                 if(args.length == 2){
@@ -270,11 +274,30 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     }
                     new TelestalItem(plugin).GiveTelestal(sender,args[1],player,amo);
                 }
+                return true;
             } else if (args[0].equalsIgnoreCase("reload")){
                 plugin.reloadConfig();
                 new TelestalPortal(plugin).PortalLoad();
                 sender.sendMessage(prefix+plugin.getConfig().getString("reload_success").replace("&","§"));
                 ((Player)sender).playSound(((Player)sender).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
+                return true;
+            } else if (args[0].equalsIgnoreCase("tp") && 2 <= args.length && args.length <= 3){
+                Player player;
+                if(args.length == 2){
+                    player = (Player) sender;
+                }else {
+                    try{
+                        player = plugin.getServer().getPlayer(args[3]);
+                        player.getUniqueId().toString();
+                    }catch (Exception e){
+                        sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
+                        return true;
+                    }
+                }
+                Location loc = new TelestalItem(plugin).getLocation((Player) sender,args[1]);
+                if(loc!=null){
+                    player.teleport(loc);
+                }
                 return true;
             }
         }

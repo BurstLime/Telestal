@@ -89,7 +89,7 @@ public class TelestalItem implements Listener {
     }
 
     //ポータルの位置取得
-    private Location getLocation(Player player,String portal) {
+    public Location getLocation(Player player,String portal) {
         String prefix = plugin.getConfig().getString("prefix")+" ";
         prefix = prefix.replace("&","§");
 
