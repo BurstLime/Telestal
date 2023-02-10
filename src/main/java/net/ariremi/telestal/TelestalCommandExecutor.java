@@ -2,6 +2,7 @@ package net.ariremi.telestal;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -46,6 +47,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         + "/ts inactivate <portal> <player>" + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_inactivate").replace("&","§") + ChatColor.RESET + "\n";
 
                 sender.sendMessage(HelpMessage);
+                return true;
             } else if (args[0].equalsIgnoreCase("activate")&& 1 < args.length) {
                 //activate
                 Player player;
@@ -172,6 +174,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     sender.sendMessage(prefix+plugin.getConfig().getString("portal_not_found").replace("&","§"));
                 }
                 new TelestalPortal(plugin).PortalLoad();
+                return true;
             } else if (args[0].equalsIgnoreCase("list")){
                 //list
                 Integer pages = new TelestalList(plugin).GetPages();
@@ -194,6 +197,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 } else {
                     sender.spigot().sendMessage(new TelestalList(plugin).PageContent(0));
                 }
+                return true;
             } else if (args[0].equalsIgnoreCase("reset")){
                 //reset
                 Player player;
@@ -213,6 +217,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+                return true;
             } else if (args[0].equalsIgnoreCase("info") && args.length == 3) {
                 //info
                 if(args[1].equalsIgnoreCase("portal")){
@@ -232,6 +237,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                         }
                     }
                     new TelestalInformation(plugin).SendPlayerInfo(sender, player);
+                    return true;
                 }
             } else if (args[0].equalsIgnoreCase("give") && 2 <= args.length && args.length <= 4) {
                 //give
@@ -264,8 +270,15 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     }
                     new TelestalItem(plugin).GiveTelestal(sender,args[1],player,amo);
                 }
+            } else if (args[0].equalsIgnoreCase("reload")){
+                plugin.reloadConfig();
+                new TelestalPortal(plugin).PortalLoad();
+                sender.sendMessage(prefix+plugin.getConfig().getString("reload_success").replace("&","§"));
+                ((Player)sender).playSound(((Player)sender).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
+                return true;
             }
         }
+        sender.sendMessage(prefix+plugin.getConfig().getString("invalid_command").replace("&","§"));
         return true;
     }
 

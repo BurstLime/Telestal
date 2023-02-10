@@ -2,6 +2,7 @@ prefix: "[&bTelestal&r]"
 
 console_execute: "コンソールから実行することはできません！"
 invalid_value: "&c無効な値です"
+invalid_command: "&c存在しないコマンド、または引数が足りない可能性があります\n&4/ts help &cでヘルプを参照してください"
 
 command_help: "&aヘルプを表示"
 command_create: "&aポータルを作成"
@@ -21,6 +22,9 @@ portal_hologram_top: "&d&l<portal>"
 portal_hologram_bottom: "&a近づいてアクティベート"
 
 portal_discover: "&2&l<portal>&aをアクティベートしました！"
+portal_discover_title: "&b&l<portal>"
+portal_discover_subtitle: "&aアクティベート完了"
+portal_visit_actionbar: "&d&l<portal>"
 
 give_success: "&2<player>&aに&2<portal>&aの転移結晶を&2<amount>個&a与えました"
 
@@ -41,6 +45,8 @@ activate_already: "&4<player>&cは&4&l<portal>&cをアクティベート済み�
 inactivate_success: "&2&l<portal>&aのアクティベートを解除しました！\n対象: <player>"
 inactivate_fail: "&4&l<portal>&cのアクティベートの解除に失敗しました"
 inactivate_already: "&4<player>&cは&4&l<portal>&cのアクティベートをしていません！"
+
+reload_success: "&aリロードしました"
 
 page_start_line: "&3--- &5&lPortal List &9<now>/<pages> &3---"
 page_end_line: " &3-------------------- "

@@ -7,5 +7,5 @@ commands:
   telestal:
     aliases: [ ts ]
     description: メインコマンド
-    usage: /<command>
+    usage: /<command> help
     default: op

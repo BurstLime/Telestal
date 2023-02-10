@@ -72,10 +72,13 @@ public class TelestalPortal implements Listener {
                     activate_player.add(player.getUniqueId().toString());
                     new TelestalActivate(plugin).PlayerActivate(portal_list[i], activate_player);
                     player.sendMessage(prefix+plugin.getConfig().getString("portal_discover").replace("&","§").replace("<portal>",portal_list[i]));
+                    player.sendTitle(plugin.getConfig().getString("portal_discover_title").replace("&","§").replace("<portal>",portal_list[i]),
+                            plugin.getConfig().getString("portal_discover_subtitle").replace("&","§"),5,60, 5);
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
                     PortalLoad();
                 }else{
-                    player.sendTitle("", ChatColor.AQUA+portal_list[i],5,60, 5);
+                    player.sendActionBar(plugin.getConfig().getString("portal_visit_actionbar").
+                            replace("&","§").replace("<portal>",portal_list[i]));
                 }
             }
         }
