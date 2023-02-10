@@ -287,7 +287,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                     player = (Player) sender;
                 }else {
                     try{
-                        player = plugin.getServer().getPlayer(args[3]);
+                        player = plugin.getServer().getPlayer(args[2]);
                         player.getUniqueId().toString();
                     }catch (Exception e){
                         sender.sendMessage(prefix+plugin.getConfig().getString("player_not_found").replace("&","§"));
