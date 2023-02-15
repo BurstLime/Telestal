@@ -13,6 +13,8 @@ permissions:
   telestal.*:
     children:
       telestal.commands: true
+      telestal.use: true
+      telestal.discover: true
     description: Telestal all permission
     default: op
   telestal.commands:
@@ -67,3 +69,9 @@ permissions:
   telestal.commands.tp:
     description: Telestal Tp Command
     default: false
+  telestal.use:
+    description: Telestal Use
+    default: true
+  telestal.discover:
+    description: Telestal Discover
+    default: true

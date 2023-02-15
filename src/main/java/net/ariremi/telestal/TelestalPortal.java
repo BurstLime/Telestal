@@ -62,6 +62,10 @@ public class TelestalPortal implements Listener {
                     Objects.requireNonNull(getLocation(portal_list[i])).getBlockZ() == player.getLocation().getBlockZ()){
                 List<String> activate_player = new TelestalCommandExecutor(plugin).getactivateplayer(player,portal_list[i]);
                 if(!activate_player.contains(player.getUniqueId().toString())){
+                    if(!player.hasPermission("telestal.discover")){
+                        player.sendActionBar(plugin.getConfig().getString("no_permission").replace("&","§"));
+                        return;
+                    }
                     activate_player.add(player.getUniqueId().toString());
                     new TelestalActivate(plugin).PlayerActivate(portal_list[i], activate_player);
                     player.sendMessage(prefix+plugin.getConfig().getString("portal_discover").replace("&","§").replace("<portal>",portal_list[i]));

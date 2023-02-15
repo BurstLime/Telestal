@@ -45,6 +45,10 @@ public class TelestalItem implements Listener {
             }
             if (e.hasItem()&&item.hasItemMeta()&&
                     item.getItemMeta().getDisplayName().contains("§b§l転移結晶 §a- ")&&item.getType() == Material.DIAMOND&&item.getLore().equals(telestal_lore)) {
+                if(!player.hasPermission("telestal.use")){
+                    player.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return;
+                }
                 String portalname = item.getItemMeta().getDisplayName().replace("§b§l転移結晶 §a- §d","");
                 List getPortal = new TelestalCommandExecutor(plugin).getactivateplayer(player,portalname);
                 if(getPortal == null){return;}
