@@ -34,6 +34,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
 
         if(command.getName().equalsIgnoreCase("telestal")){
             if(args.length == 0 || args[0].equalsIgnoreCase("help")){
+                if(!sender.hasPermission("telestal.commands.help")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 String HelpMessage1 = ChatColor.BLUE + "♢---- Telestal Help §3(1/2) §9----♢" + ChatColor.RESET + "\n"
                         + "/ts help §8<page> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_help").replace("&","§") + ChatColor.RESET + "\n"
                         + "/ts give §7<portal> §8<amount> <player> " + ChatColor.GREEN + "- " + plugin.getConfig().getString("command_give").replace("&","§") + ChatColor.RESET + "\n"
@@ -57,6 +62,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("activate")&& 1 < args.length) {
                 //activate
+                if(!sender.hasPermission("telestal.commands.activate")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 Player player;
                 if (args.length == 3) {
                     try {
@@ -99,6 +109,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("inactivate") && 1 < args.length) {
                 //inactivate
+                if(!sender.hasPermission("telestal.commands.inactivate")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 Player player;
                 if (args.length == 3) {
                     try {
@@ -141,6 +156,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("create") && args.length == 2) {
                 //create
+                if(!sender.hasPermission("telestal.commands.create")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 File File = new File(plugin.getDataFolder().getPath(),"portal");
                 File = new File(File,args[1]+".yml");
                 if(Files.exists(File.toPath())){
@@ -164,10 +184,20 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("remove") && args.length == 2) {
                 //remove
+                if(!sender.hasPermission("telestal.commands.remove")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 this.RemoveFile(sender,args[1]);
                 return true;
             } else if (args[0].equalsIgnoreCase("set") && args.length == 2) {
                 //set
+                if(!sender.hasPermission("telestal.commands.set")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 File File = new File(plugin.getDataFolder().getPath(),"portal");
                 File = new File(File,args[1]+".yml");
                 if(Files.exists(File.toPath())) {
@@ -188,6 +218,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("list")){
                 //list
+                if(!sender.hasPermission("telestal.commands.list")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 Integer pages = new TelestalList(plugin).GetPages();
                 Integer p;
                 if(args.length == 2){
@@ -211,6 +246,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("reset")){
                 //reset
+                if(!sender.hasPermission("telestal.commands.reset")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 Player player;
                 if (args.length == 2) {
                     try {
@@ -231,6 +271,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("info") && args.length == 3) {
                 //info
+                if(!sender.hasPermission("telestal.commands.info")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 if(args[1].equalsIgnoreCase("portal")){
                     new TelestalInformation(plugin).SendPortalInfo(sender,args[2]);
                 } else if (args[1].equalsIgnoreCase("player")) {
@@ -252,6 +297,11 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("give") && 2 <= args.length && args.length <= 4) {
                 //give
+                if(!sender.hasPermission("telestal.commands.give")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 if(args.length == 2){
                     new TelestalItem(plugin).GiveTelestal(sender,args[1],(Player) sender,1);
                 } else if (args.length == 3) {
@@ -283,12 +333,24 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
                 return true;
             } else if (args[0].equalsIgnoreCase("reload")){
+                //reload
+                if(!sender.hasPermission("telestal.commands.reload")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 plugin.reloadConfig();
                 new TelestalPortal(plugin).PortalLoad();
                 sender.sendMessage(prefix+plugin.getConfig().getString("reload_success").replace("&","§"));
                 ((Player)sender).playSound(((Player)sender).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
                 return true;
             } else if (args[0].equalsIgnoreCase("tp") && 2 <= args.length && args.length <= 3){
+                //tp
+                if(!sender.hasPermission("telestal.commands.tp")){
+                    sender.sendMessage(prefix+plugin.getConfig().getString("no_permission").replace("&","§"));
+                    return true;
+                }
+
                 Player player;
                 if(args.length == 2){
                     player = (Player) sender;

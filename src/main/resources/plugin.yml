@@ -9,3 +9,61 @@ commands:
     description: メインコマンド
     usage: /<command> help
     default: op
+permissions:
+  telestal.*:
+    children:
+      telestal.commands: true
+    description: Telestal all permission
+    default: op
+  telestal.commands:
+    description: Telestal commands permission
+    default: op
+    children:
+      telestal.commands.help: true
+      telestal.commands.give: true
+      telestal.commands.create: true
+      telestal.commands.remove: true
+      telestal.commands.set: true
+      telestal.commands.reset: true
+      telestal.commands.activate: true
+      telestal.commands.inactivate: true
+      telestal.commands.reload: true
+      telestal.commands.info: true
+      telestal.commands.list: true
+      telestal.commands.tp: true
+  telestal.commands.help:
+    description: Telestal Help Command
+    default: false
+  telestal.commands.give:
+    description: Telestal Give Command
+    default: false
+  telestal.commands.create:
+    description: Telestal Create Command
+    default: false
+  telestal.commands.remove:
+    description: Telestal Remove Command
+    default: false
+  telestal.commands.set:
+    description: Telestal Set Command
+    default: false
+  telestal.commands.reset:
+    description: Telestal Reset Command
+    default: false
+  telestal.commands.activate:
+    description: Telestal Activate Command
+    default: false
+  telestal.commands.inactivate:
+    description: Telestal Inactivate Command
+    default: false
+  telestal.commands.reload:
+    description: Telestal Reload Command
+    default: false
+  telestal.commands.info:
+    description: Telestal Info Command
+    default: false
+  telestal.commands.list:
+    description: Telestal List Command
+    default: false
+  telestal.commands.tp:
+    description: Telestal Tp Command
+    default: false

@@ -1,5 +1,6 @@
 prefix: "[&bTelestal&r]"
 
+no_permission: "&c実行する権限がありません！"
 console_execute: "コンソールから実行することはできません！"
 invalid_value: "&c無効な値です"
 invalid_command: "&c存在しないコマンド、または引数が足りない可能性があります\n&4/ts help &cでヘルプを参照してください"
