@@ -27,7 +27,7 @@ portal_hologram_bottom: "&a近づいてアクティベート"
 portal_discover: "&2&l<portal>&aをアクティベートしました！"
 portal_discover_title: "&b&l<portal>"
 portal_discover_subtitle: "&aアクティベート完了"
-portal_visit_actionbar: "&d&l<portal>"
+portal_visit_actionbar: "&a&n&l<portal>"
 
 give_success: "&2<player>&aに&2<portal>&aの転移結晶を&2<amount>個&a与えました"
 

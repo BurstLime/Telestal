@@ -127,7 +127,7 @@ public class TelestalItem implements Listener {
             double z = Double.valueOf(data.get("z").toString());
             float yaw = Float.valueOf(data.get("yaw").toString());
             float pitch = Float.valueOf(data.get("pitch").toString());
-            return new Location(world,x,y,z,yaw,pitch);
+            return new Location(world,x+0.5,y,z+0.5,yaw,pitch);
         }
     }
 }
