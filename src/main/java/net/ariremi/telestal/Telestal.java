@@ -39,6 +39,7 @@ public final class Telestal extends JavaPlugin implements Listener {
         getCommand("telestal").setTabCompleter(new TelestalTabComplete(this));
         getServer().getPluginManager().registerEvents(new TelestalItem(this),this);
         getServer().getPluginManager().registerEvents(new TelestalPortal(this),this);
+        getServer().getPluginManager().registerEvents(new TelestalBannedEvent(this),this);
         getServer().getPluginManager().registerEvents(this,this);
         getLogger().info("起動しました！");
     }
