@@ -32,20 +32,20 @@ public class TelestalPortal implements Listener {
         HolographicDisplaysAPI api = HolographicDisplaysAPI.get(plugin);
         String[] portal_list = new TelestalList(plugin).PortalList();
         api.deleteHolograms();
-        for (int i = 0; i < portal_list.length; i++){
-            Hologram hologram = api.createHologram(Objects.requireNonNull(getLocation(portal_list[i])));
+        for (String s : portal_list) {
+            Hologram hologram = api.createHologram(Objects.requireNonNull(getLocation(s)));
             VisibilitySettings visibilitySettings = hologram.getVisibilitySettings();
             visibilitySettings.setGlobalVisibility(VisibilitySettings.Visibility.VISIBLE);
-            List<String> active_player = getactivateplayer(portal_list[i]);
-            for (int a = 0; a < active_player.size(); a++){
-                UUID uuid = UUID.fromString(active_player.get(a));
+            List<String> active_player = getactivateplayer(s);
+            for (String value : active_player) {
+                UUID uuid = UUID.fromString(value);
                 Player player = plugin.getServer().getPlayer(uuid);
                 visibilitySettings.setIndividualVisibility(player, VisibilitySettings.Visibility.HIDDEN);
             }
             TextHologramLine textLine = hologram.getLines().appendText(plugin.getConfig().getString("portal_hologram_top").
-                    replace("&","§").replace("<portal>",portal_list[i]));
+                    replace("&", "§").replace("<portal>", s));
             ItemHologramLine itemLine = hologram.getLines().appendItem(new ItemStack(Material.DIAMOND));
-            TextHologramLine textLine2 = hologram.getLines().appendText(plugin.getConfig().getString("portal_hologram_bottom").replace("&","§"));
+            TextHologramLine textLine2 = hologram.getLines().appendText(plugin.getConfig().getString("portal_hologram_bottom").replace("&", "§"));
         }
     }
 
@@ -57,25 +57,25 @@ public class TelestalPortal implements Listener {
 
         Player player = e.getPlayer();
         String[] portal_list = new TelestalList(plugin).PortalList();
-        for (int i = 0; i < portal_list.length; i++){
-            if(Objects.requireNonNull(getLocation(portal_list[i])).getBlockX() == player.getLocation().getBlockX() &&
-                    Objects.requireNonNull(getLocation(portal_list[i])).getBlockZ() == player.getLocation().getBlockZ()){
-                List<String> activate_player = new TelestalCommandExecutor(plugin).getactivateplayer(player,portal_list[i]);
-                if(!activate_player.contains(player.getUniqueId().toString())){
-                    if(!player.hasPermission("telestal.discover")){
-                        player.sendActionBar(plugin.getConfig().getString("no_permission").replace("&","§"));
+        for (String s : portal_list) {
+            if (Objects.requireNonNull(getLocation(s)).getBlockX() == player.getLocation().getBlockX() &&
+                    Objects.requireNonNull(getLocation(s)).getBlockZ() == player.getLocation().getBlockZ()) {
+                List<String> activate_player = new TelestalCommandExecutor(plugin).getactivateplayer(player, s);
+                if (!activate_player.contains(player.getUniqueId().toString())) {
+                    if (!player.hasPermission("telestal.discover")) {
+                        player.sendActionBar(plugin.getConfig().getString("no_permission").replace("&", "§"));
                         return;
                     }
                     activate_player.add(player.getUniqueId().toString());
-                    new TelestalActivate(plugin).PlayerActivate(portal_list[i], activate_player);
-                    player.sendMessage(prefix+plugin.getConfig().getString("portal_discover").replace("&","§").replace("<portal>",portal_list[i]));
-                    player.sendTitle(plugin.getConfig().getString("portal_discover_title").replace("&","§").replace("<portal>",portal_list[i]),
-                            plugin.getConfig().getString("portal_discover_subtitle").replace("&","§"),5,60, 5);
+                    new TelestalActivate(plugin).PlayerActivate(s, activate_player);
+                    player.sendMessage(prefix + plugin.getConfig().getString("portal_discover").replace("&", "§").replace("<portal>", s));
+                    player.sendTitle(plugin.getConfig().getString("portal_discover_title").replace("&", "§").replace("<portal>", s),
+                            plugin.getConfig().getString("portal_discover_subtitle").replace("&", "§"), 5, 60, 5);
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1);
                     PortalLoad();
-                }else{
+                } else {
                     player.sendActionBar(plugin.getConfig().getString("portal_visit_actionbar").
-                            replace("&","§").replace("<portal>",portal_list[i]));
+                            replace("&", "§").replace("<portal>", s));
                 }
             }
         }
