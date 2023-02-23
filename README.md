@@ -23,17 +23,25 @@ Holographic Displays (3.0.1) -> https://github.com/filoghost/HolographicDisplays
 /ts tp <portal> <player> - ポータルにテレポート<br>
 
 <h2>Permission</h2>
-telestal.use - 転移結晶の使用
-telestal.discover - ポータルアクティベート
-telestal.commands.help
-telestal.commands.give
-telestal.commands.create
-telestal.commands.remove
-telestal.commands.set
-telestal.commands.reset
-telestal.commands.activate
-telestal.commands.inactivate
-telestal.commands.reload
-telestal.commands.info
-telestal.commands.list
-telestal.commands.tp
+telestal.use - 転移結晶の使用<br>
+telestal.discover - ポータルアクティベート<br>
+telestal.commands.help<br>
+telestal.commands.give<br>
+telestal.commands.create<br>
+telestal.commands.remove<br>
+telestal.commands.set<br>
+telestal.commands.reset<br>
+telestal.commands.activate<br>
+telestal.commands.inactivate<br>
+telestal.commands.reload<br>
+telestal.commands.info<br>
+telestal.commands.list<br>
+telestal.commands.tp<br>
+  
+<h2>config.ymlについて</h2>
+メッセージの変更ができます。<br>
+自サーバーで使うために作られたプラグインなので一部変更できないメッセージがあります。<br>
+時間があれば、変更できるオプションを増やそうと考えています。<br>
+  
+<h2>ライセンス</h2>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">クリエイティブ・コモンズ 表示 - 非営利 4.0 国際 ライセンス</a>の下に提供されています。
