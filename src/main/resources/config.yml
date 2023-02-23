@@ -49,7 +49,7 @@ activate_already: "&4<player>&cは&4&l<portal>&cをアクティベート済み�
 
 inactivate_success: "&2&l<portal>&aのアクティベートを解除しました！\n対象: <player>"
 inactivate_fail: "&4&l<portal>&cのアクティベートの解除に失敗しました"
-inactivate_already: "&4<player>&cは&4&l<portal>&cのアクティベートをしていません！"
+inactivate_not_yet: "&4<player>&cは&4&l<portal>&cのアクティベートをしていません！"
 
 reload_success: "&aリロードしました"
 

@@ -138,7 +138,7 @@ public class TelestalCommandExecutor implements CommandExecutor {
                 }
 
                 if (!activate_player.contains(player.getUniqueId().toString())) {
-                    sender.sendMessage(prefix + plugin.getConfig().getString("inactivate_already").
+                    sender.sendMessage(prefix + plugin.getConfig().getString("inactivate_not_yet").
                             replace("<player>", player.getName()).replace("<portal>", args[1]).replace("&","§"));
                 } else {
                     activate_player.remove(player.getUniqueId().toString());
