@@ -4,6 +4,13 @@ PaperMC Plugin - 転移結晶プラグイン<br>
 Bukkit、Spigotは非対応です。<br>
 バージョンは1.12.2を想定して作られています。
 
+##プラグイン説明
+ポータルに近づきアクティベートすると、転移結晶を使って転移することができるようになるプラグインです。<br>
+アクティベートしていないポータルには転移結晶を使用しても、転移することができません。<br>
+転移結晶は使用するごとに1個ずつ消費していきます。<br>
+主にRPGサーバーでの使用に適しています。
+RPGサーバーの移動システムに使ってみてはどうでしょうか？
+
 ## 必須プラグイン
 ProtocolLib (4.8.0) -> https://github.com/dmulloy2/ProtocolLib<br>
 Holographic Displays (3.0.1) -> https://github.com/filoghost/HolographicDisplays
