@@ -1,7 +1,8 @@
 # Telestal
 PaperMC Plugin - 転移結晶プラグイン<br>
+<br>
 Bukkit、Spigotは非対応です。<br>
-PaperMCでのみ利用可能です。
+バージョンは1.12.2を想定して作られています。
 
 <h2>必須プラグイン</h2>
 ProtocolLib (4.8.0) -> https://github.com/dmulloy2/ProtocolLib<br>
