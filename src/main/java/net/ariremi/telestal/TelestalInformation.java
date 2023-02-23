@@ -85,11 +85,11 @@ public class TelestalInformation {
             Double before_chance = (double)count/filelist.length;
             chance = (int) (before_chance*100);
         }
-        Integer inactivate = Integer.valueOf(filelist.length);
+        Integer all = Integer.valueOf(filelist.length);
 
         sender.sendMessage(plugin.getConfig().getString("info_player_start_line").replace("<player>",player.getName()).replace("&","§")+"\n"+
                 plugin.getConfig().getString("info_player_content").replace("&","§").
-                        replace("<activated>",count.toString()).replace("<inactivate>",inactivate.toString()).replace("<chance>",chance.toString())+bar);
+                        replace("<activated>",count.toString()).replace("<all>",all.toString()).replace("<chance>",chance.toString())+bar);
 
     }
 }
