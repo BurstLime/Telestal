@@ -23,15 +23,15 @@ Holographic Displays (3.0.1) -> https://github.com/filoghost/HolographicDisplays
 /ts tp <portal> <player> - ポータルにテレポート<br>
 
 <h2>Permission</h2>
-telestal ─── commands ─── help
-          │─ use       │─ give
-          │─ discover  │─ create
-                       │─ remove
-                       │─ set
-                       │─ reset
-                       │─ activate
-                       │─ inactivate
-                       │─ reload
-                       │─ info
-                       │─ list
-                       │─ tp
+telestal ─── commands ─── help<br>
+          │─ use       │─ give<br>
+          │─ discover  │─ create<br>
+                       │─ remove<br>
+                       │─ set<br>
+                       │─ reset<br>
+                       │─ activate<br>
+                       │─ inactivate<br>
+                       │─ reload<br>
+                       │─ info<br>
+                       │─ list<br>
+                       │─ tp<br>
