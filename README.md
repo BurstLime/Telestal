@@ -23,15 +23,17 @@ Holographic Displays (3.0.1) -> https://github.com/filoghost/HolographicDisplays
 /ts tp <portal> <player> - ポータルにテレポート<br>
 
 <h2>Permission</h2>
-telestal ─── commands ─── help<br>
-          │─ use       │─ give<br>
-          │─ discover  │─ create<br>
-                       │─ remove<br>
-                       │─ set<br>
-                       │─ reset<br>
-                       │─ activate<br>
-                       │─ inactivate<br>
-                       │─ reload<br>
-                       │─ info<br>
-                       │─ list<br>
-                       │─ tp<br>
+telestal.use - 転移結晶の使用
+telestal.discover - ポータルアクティベート
+telestal.commands.help
+telestal.commands.give
+telestal.commands.create
+telestal.commands.remove
+telestal.commands.set
+telestal.commands.reset
+telestal.commands.activate
+telestal.commands.inactivate
+telestal.commands.reload
+telestal.commands.info
+telestal.commands.list
+telestal.commands.tp
