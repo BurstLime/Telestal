@@ -1,6 +1,6 @@
 # Telestal
-PaperMC Plugin - 転移結晶プラグイン
-Bukkit、Spigotは非対応です。
+PaperMC Plugin - 転移結晶プラグイン<br>
+Bukkit、Spigotは非対応です。<br>
 PaperMCでのみ利用可能です。
 
 <h2>必須プラグイン</h2>
