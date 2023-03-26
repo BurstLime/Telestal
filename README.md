@@ -8,8 +8,7 @@ Bukkit、Spigotは非対応です。<br>
 ポータルに近づきアクティベートすると、転移結晶を使って転移することができるようになるプラグインです。<br>
 アクティベートしていないポータルには転移結晶を使用しても、転移することができません。<br>
 転移結晶は使用するごとに1個ずつ消費していきます。<br>
-主にRPGサーバーでの使用に適しています。<br>
-RPGサーバーの移動システムに使ってみてはどうでしょうか？
+主にRPGサーバーでの使用に適しています。
 
 ## 必須プラグイン
 ProtocolLib (4.8.0) -> https://github.com/dmulloy2/ProtocolLib<br>
@@ -53,8 +52,7 @@ telestal.commands.tp
 
 ## config.ymlについて
 メッセージの変更ができます。<br>
-自鯖で使うために作られたプラグインなので一部変更できないメッセージがあります。<br>
-時間があれば、変更できるオプションを増やそうと考えています。<br>
+自鯖で使うために作られたプラグインなので一部変更できないメッセージがあります。
   
 ## ライセンス
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際 ライセンス</a>の下に提供されています。
