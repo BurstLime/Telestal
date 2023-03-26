@@ -59,6 +59,7 @@ public class TelestalPortal implements Listener {
         String[] portal_list = new TelestalList(plugin).PortalList();
         for (String s : portal_list) {
             if (Objects.requireNonNull(getLocation(s)).getBlockX() == player.getLocation().getBlockX() &&
+                    Objects.requireNonNull(getLocation(s)).getBlockY()-2 == player.getLocation().getBlockY() &&
                     Objects.requireNonNull(getLocation(s)).getBlockZ() == player.getLocation().getBlockZ()) {
                 List<String> activate_player = new TelestalCommandExecutor(plugin).getactivateplayer(player, s);
                 if (!activate_player.contains(player.getUniqueId().toString())) {
